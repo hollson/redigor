@@ -223,7 +223,7 @@ func (s *Sentinel) doUntilSuccess(f func(redis.Conn) (interface{}, error)) (inte
 		reply, err := f(conn)
 		conn.Close()
 		if err != nil {
-			log.Printf("%s is not available",addr)
+			log.Printf("%s is not available", addr)
 			lastErr = err
 			s.mu.Lock()
 			s.putToBottom(addr)

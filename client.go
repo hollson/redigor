@@ -42,7 +42,7 @@ func (c *Client) Execute(fn ExecuteFunc) (res interface{}, err error) {
 	return
 }
 
-func (c *Client) Do(cmd string, args ...interface{}) (res interface{},err error) {
+func (c *Client) Do(cmd string, args ...interface{}) (res interface{}, err error) {
 
 	conn := c.mode.GetConn()
 	defer conn.Close()
@@ -57,7 +57,6 @@ func (c *Client) Do(cmd string, args ...interface{}) (res interface{},err error)
 		}
 	}
 	return
-
 
 	// conn := c.mode.GetConn()
 	// defer conn.Close()
@@ -74,5 +73,3 @@ func (c *Client) Subscribe(fn SubscribeFunc) error {
 	defer conn.Close()
 	return fn(redis.PubSubConn{Conn: conn})
 }
-
-

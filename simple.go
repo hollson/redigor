@@ -14,12 +14,12 @@ func (c *Client) IntSet(key string, val int) (interface{}, error) {
 
 func (c *Client) IntGet(key string) (int, error) {
 	return redis.Int(c.Execute(func(c redis.Conn) (res interface{}, err error) {
-		return c.Do("GET",key)
+		return c.Do("GET", key)
 	}))
 }
 
-func (c *Client) StringSet(key , val string) (interface{}, error) {
-	return  c.Do("SET",key,val)
+func (c *Client) StringSet(key, val string) (interface{}, error) {
+	return c.Do("SET", key, val)
 
 	// return c.Execute(func(c redis.Conn) (res interface{}, err error) {
 	// 	return c.Do("SET", key, val)
@@ -27,7 +27,7 @@ func (c *Client) StringSet(key , val string) (interface{}, error) {
 }
 
 func (c *Client) StringGet(key string) (string, error) {
-	return redis.String( c.Do("GET",key))
+	return redis.String(c.Do("GET", key))
 	// return redis.Int(c.Execute(func(c redis.Conn) (res interface{}, err error) {
 	// 	return c.Do("GET",key)
 	// }))
@@ -38,6 +38,3 @@ func (c *Client) StringGet(key string) (string, error) {
 // 		return c.Do("MGET",keys)
 // 	}))
 // }
-
-
-

@@ -1,8 +1,9 @@
 package redigor
 
 import (
-	"github.com/gomodule/redigo/redis"
 	"time"
+
+	"github.com/gomodule/redigo/redis"
 )
 
 // PoolOption 连接池配置函数
