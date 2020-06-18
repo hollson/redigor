@@ -8,6 +8,7 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
+// ModeInterface
 type ModeInterface interface {
 	fmt.Stringer
 	GetConn() redis.Conn

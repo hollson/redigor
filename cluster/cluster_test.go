@@ -13,17 +13,17 @@ var client = NewClient()
 var message = "hello world"
 var channel = "test-channel"
 
-func BenchmarkAloneMode_Exec(b *testing.B) {
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			res, err := client.String(func(c redis.Conn) (res interface{}, err error) {
-				return c.Do("ECHO", message)
-			})
-			assert.Nil(b, err)
-			assert.Equal(b, message, res)
-		}
-	})
-}
+// func BenchmarkAloneMode_Exec(b *testing.B) {
+// 	b.RunParallel(func(pb *testing.PB) {
+// 		for pb.Next() {
+// 			res, err := client.String(func(c redis.Conn) (res interface{}, err error) {
+// 				return c.Do("ECHO", message)
+// 			})
+// 			assert.Nil(b, err)
+// 			assert.Equal(b, message, res)
+// 		}
+// 	})
+// }
 
 func BenchmarkAloneMode_Sub(b *testing.B) {
 	var counter int32

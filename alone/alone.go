@@ -19,7 +19,7 @@ func (am *aloneMode) String() string { return "alone" }
 
 func New(optFuncs ...OptFunc) redigor.ModeInterface {
 	opts := options{
-		addr:     "127.0.0.1:6379",
+		addr:     "127.0.0.1:6381",
 		dialOpts: redigor.DefaultDialOpts(),
 		poolOpts: redigor.DefaultPoolOpts(),
 	}

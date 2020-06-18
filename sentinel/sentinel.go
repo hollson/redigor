@@ -3,9 +3,10 @@ package sentinel
 import (
 	"runtime"
 	"time"
-	"github.com/hollson/redigor/fzambia"
+
 	"github.com/gomodule/redigo/redis"
 	"github.com/hollson/redigor"
+	"github.com/hollson/redigor/fzambia"
 )
 
 type sentinelMode struct {
@@ -69,6 +70,6 @@ func New(optFuncs ...OptFunc) redigor.ModeInterface {
 	return &sentinelMode{pool: pool}
 }
 
-func NewClient(optFuncs ...OptFunc) *redigor.Client {
-	return redigor.New(New(optFuncs...))
+func NewClient(optFunc ...OptFunc) *redigor.Client {
+	return redigor.New(New(optFunc...))
 }
