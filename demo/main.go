@@ -46,7 +46,9 @@ func sentinelErr() {
 	cli := sentinel.NewClient(sentinel.Addrs(sentinels), sentinel.MasterName("mymaster"))
 
 	// 先循环GetConn，否则再NewConn
-	fmt.Println(cli.Do("PING"))
+	fmt.Println(cli.Do("PING")) //err + pong
+	fmt.Println(cli.Do("PING")) //pong
+	fmt.Println(cli.Do("PING")) //pong
 
 	fmt.Println()
 	sentinels = []string{":26379", ":26380"}
