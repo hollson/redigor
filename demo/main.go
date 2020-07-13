@@ -1,3 +1,7 @@
+// Copyright 2020 Hollson. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
 package main
 
 import (
@@ -17,14 +21,15 @@ func main() {
 }
 
 func aloneDemo() {
-	cli := alone.NewClient(alone.Addr(":6379"))
+	cli := alone.NewClient(alone.WithAddress(":6379"))
 	log.Println(cli.Do("PING"))
 }
 
 func sentinelDemo() {
+	// e.g. 127.0.0.1:26379
 	var sentinels = []string{":26379", ":26380", ":26381"}
 	// 默认MasterName为mymaster
-	cli := sentinel.NewClient(sentinel.Addrs(sentinels))
+	cli := sentinel.NewClient(sentinel.WithAddress(sentinels))
 
 	// Do 操作
 	log.Println(cli.Do("SET", "hello", "world"))
@@ -43,21 +48,21 @@ func sentinelDemo() {
 // 哨兵故障转移
 func sentinelErr() {
 	var sentinels = []string{":12345", ":26379", ":26380"}
-	cli := sentinel.NewClient(sentinel.Addrs(sentinels), sentinel.MasterName("mymaster"))
+	cli := sentinel.NewClient(sentinel.WithAddress(sentinels), sentinel.WithMasterName("mymaster"))
 
 	// 先循环GetConn，否则再NewConn
-	fmt.Println(cli.Do("PING")) //err + pong
-	fmt.Println(cli.Do("PING")) //pong
-	fmt.Println(cli.Do("PING")) //pong
+	fmt.Println(cli.Do("PING")) // err + pong
+	fmt.Println(cli.Do("PING")) // pong
+	fmt.Println(cli.Do("PING")) // pong
 
 	fmt.Println()
 	sentinels = []string{":26379", ":26380"}
-	cli = sentinel.NewClient(sentinel.Addrs(sentinels), sentinel.MasterName("unknown"))
+	cli = sentinel.NewClient(sentinel.WithAddress(sentinels), sentinel.WithMasterName("unknown"))
 	fmt.Println(cli.Do("PING"))
 }
 
 // 集群模式(待验证)
 func clusterDemo() {
-	cli := cluster.NewClient(cluster.Nodes([]string{}))
+	cli := cluster.NewClient(cluster.WithNodes([]string{}))
 	_ = cli
 }
