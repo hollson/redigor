@@ -1,3 +1,7 @@
+// Copyright 2020 Hollson. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
 package redigor
 
 import (
@@ -57,12 +61,6 @@ func (c *Client) Do(cmd string, args ...interface{}) (res interface{}, err error
 		}
 	}
 	return
-
-	// conn := c.mode.GetConn()
-	// defer conn.Close()
-	//
-	//
-	// return conn.Do(cmd, args...)
 }
 
 func (c *Client) Subscribe(fn SubscribeFunc) error {

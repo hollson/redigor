@@ -1,3 +1,7 @@
+// Copyright 2020 Hollson. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
 package sentinel
 
 import (
@@ -6,7 +10,7 @@ import (
 
 	"github.com/gomodule/redigo/redis"
 	"github.com/hollson/redigor"
-	"github.com/hollson/redigor/fzambia"
+	"github.com/hollson/redigor/sentinel/fzambia"
 )
 
 type sentinelMode struct {
@@ -21,9 +25,10 @@ func (sm *sentinelMode) NewConn() (redis.Conn, error) {
 	return sm.pool.Dial()
 }
 
+// 使用方法来约束字段
 func (sm *sentinelMode) String() string { return "sentinel" }
 
-func New(optFuncs ...OptFunc) redigor.ModeInterface {
+func New(opt ...Option) redigor.ModeInterface {
 	opts := options{
 		addrs: []string{
 			"127.0.0.1:26379",
@@ -32,7 +37,7 @@ func New(optFuncs ...OptFunc) redigor.ModeInterface {
 		poolOpts:   redigor.DefaultPoolOpts(),
 		dialOpts:   redigor.DefaultDialOpts(),
 	}
-	for _, optFunc := range optFuncs {
+	for _, optFunc := range opt {
 		optFunc(&opts)
 	}
 	if len(opts.sentinelDialOpts) == 0 {
@@ -70,6 +75,6 @@ func New(optFuncs ...OptFunc) redigor.ModeInterface {
 	return &sentinelMode{pool: pool}
 }
 
-func NewClient(optFunc ...OptFunc) *redigor.Client {
+func NewClient(optFunc ...Option) *redigor.Client {
 	return redigor.New(New(optFunc...))
 }

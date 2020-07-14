@@ -1,3 +1,7 @@
+// Copyright 2020 Hollson. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
 package alone
 
 import (
@@ -17,7 +21,7 @@ func (am *aloneMode) NewConn() (redis.Conn, error) {
 
 func (am *aloneMode) String() string { return "alone" }
 
-func New(optFuncs ...OptFunc) redigor.ModeInterface {
+func New(optFuncs ...Option) redigor.ModeInterface {
 	opts := options{
 		addr:     "127.0.0.1:6381",
 		dialOpts: redigor.DefaultDialOpts(),
@@ -37,6 +41,6 @@ func New(optFuncs ...OptFunc) redigor.ModeInterface {
 	return &aloneMode{pool: pool}
 }
 
-func NewClient(optFuncs ...OptFunc) *redigor.Client {
+func NewClient(optFuncs ...Option) *redigor.Client {
 	return redigor.New(New(optFuncs...))
 }

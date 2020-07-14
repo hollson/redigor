@@ -1,3 +1,7 @@
+// Copyright 2020 Hollson. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
 package sentinel
 
 import (
@@ -13,21 +17,21 @@ type options struct {
 	sentinelDialOpts []redis.DialOption
 }
 
-type OptFunc func(opts *options)
+type Option func(opts *options)
 
-func Addrs(value []string) OptFunc {
+func WithAddress(value []string) Option {
 	return func(opts *options) {
 		opts.addrs = value
 	}
 }
 
-func MasterName(value string) OptFunc {
+func WithMasterName(value string) Option {
 	return func(opts *options) {
 		opts.masterName = value
 	}
 }
 
-func PoolOpts(value ...redigor.PoolOption) OptFunc {
+func WithPool(value ...redigor.PoolOption) Option {
 	return func(opts *options) {
 		for _, poolOpt := range value {
 			opts.poolOpts = append(opts.poolOpts, poolOpt)
@@ -35,7 +39,7 @@ func PoolOpts(value ...redigor.PoolOption) OptFunc {
 	}
 }
 
-func DialOpts(value ...redis.DialOption) OptFunc {
+func WithDial(value ...redis.DialOption) Option {
 	return func(opts *options) {
 		for _, dialOpt := range value {
 			opts.dialOpts = append(opts.dialOpts, dialOpt)
@@ -43,7 +47,7 @@ func DialOpts(value ...redis.DialOption) OptFunc {
 	}
 }
 
-func SentinelDialOpts(value ...redis.DialOption) OptFunc {
+func WithSentinelDial(value ...redis.DialOption) Option {
 	return func(opts *options) {
 		for _, dialOpt := range value {
 			opts.sentinelDialOpts = append(opts.sentinelDialOpts, dialOpt)

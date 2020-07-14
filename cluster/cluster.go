@@ -1,3 +1,7 @@
+// Copyright 2020 Hollson. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
 package cluster
 
 import (
@@ -20,7 +24,7 @@ func (cm *clusterMode) NewConn() (redis.Conn, error) {
 
 func (cm *clusterMode) String() string { return "cluster" }
 
-func New(optFuncs ...OptFunc) redigor.ModeInterface {
+func New(optFuncs ...Option) redigor.ModeInterface {
 	opts := options{
 		nodes: []string{
 			"127.0.0.1:30001", "127.0.0.1:30002", "127.0.0.1:30003",
@@ -51,6 +55,6 @@ func New(optFuncs ...OptFunc) redigor.ModeInterface {
 	return &clusterMode{rc: rc}
 }
 
-func NewClient(optFuncs ...OptFunc) *redigor.Client {
+func NewClient(optFuncs ...Option) *redigor.Client {
 	return redigor.New(New(optFuncs...))
 }
