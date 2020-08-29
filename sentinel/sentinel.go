@@ -36,12 +36,10 @@ func New(opt ...Option) redigor.ModeInterface {
 		masterName: "mymaster",
 		poolOpts:   redigor.DefaultPoolOpts(),
 		dialOpts:   redigor.DefaultDialOpts(),
+		sentinelDialOpts:redigor.DefaultDialOpts(),
 	}
 	for _, optFunc := range opt {
 		optFunc(&opts)
-	}
-	if len(opts.sentinelDialOpts) == 0 {
-		opts.sentinelDialOpts = opts.dialOpts
 	}
 	st := &fzambia.Sentinel{
 		Addrs:      opts.addrs,

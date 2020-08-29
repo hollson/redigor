@@ -47,7 +47,6 @@ func (c *Client) Execute(fn ExecuteFunc) (res interface{}, err error) {
 }
 
 func (c *Client) Do(cmd string, args ...interface{}) (res interface{}, err error) {
-
 	conn := c.mode.GetConn()
 	defer conn.Close()
 	if res, err = conn.Do(cmd, args...); err != nil {

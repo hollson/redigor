@@ -12,6 +12,8 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
+// 策略模式
+
 // ModeInterface
 type ModeInterface interface {
 	fmt.Stringer
